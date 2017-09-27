@@ -22,6 +22,8 @@
 		80551CC61F7AA11700176683 /* MenuHighscoreMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 80551CBF1F7AA11700176683 /* MenuHighscoreMusic.mp3 */; };
 		80551CC71F7AA11700176683 /* move.wav in Resources */ = {isa = PBXBuildFile; fileRef = 80551CC01F7AA11700176683 /* move.wav */; };
 		80551CC81F7AA11700176683 /* powerUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 80551CC11F7AA11700176683 /* powerUp.wav */; };
+		809D57E81F7ACDC800897167 /* pulse.sks in Resources */ = {isa = PBXBuildFile; fileRef = 809D57E71F7ACDC800897167 /* pulse.sks */; };
+		809D57EA1F7ACE8300897167 /* fireworks.sks in Resources */ = {isa = PBXBuildFile; fileRef = 809D57E91F7ACE8300897167 /* fireworks.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		80551CBF1F7AA11700176683 /* MenuHighscoreMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MenuHighscoreMusic.mp3; sourceTree = "<group>"; };
 		80551CC01F7AA11700176683 /* move.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = move.wav; sourceTree = "<group>"; };
 		80551CC11F7AA11700176683 /* powerUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerUp.wav; sourceTree = "<group>"; };
+		809D57E71F7ACDC800897167 /* pulse.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = pulse.sks; sourceTree = "<group>"; };
+		809D57E91F7ACE8300897167 /* fireworks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fireworks.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 				80551CAF1F7A9FDC00176683 /* Assets.xcassets */,
 				80551CB11F7A9FDC00176683 /* LaunchScreen.storyboard */,
 				80551CB41F7A9FDC00176683 /* Info.plist */,
+				809D57E71F7ACDC800897167 /* pulse.sks */,
+				809D57E91F7ACE8300897167 /* fireworks.sks */,
 			);
 			path = ColorGame;
 			sourceTree = "<group>";
@@ -166,9 +172,11 @@
 				80551CAE1F7A9FDC00176683 /* Main.storyboard in Resources */,
 				80551CA51F7A9FDC00176683 /* GameScene.sks in Resources */,
 				80551CC31F7AA11700176683 /* fail.wav in Resources */,
+				809D57EA1F7ACE8300897167 /* fireworks.sks in Resources */,
 				80551CC41F7AA11700176683 /* levelCompleted.wav in Resources */,
 				80551CC81F7AA11700176683 /* powerUp.wav in Resources */,
 				80551CC21F7AA11700176683 /* background.wav in Resources */,
+				809D57E81F7ACDC800897167 /* pulse.sks in Resources */,
 				80551CB01F7A9FDC00176683 /* Assets.xcassets in Resources */,
 				80551CB31F7A9FDC00176683 /* LaunchScreen.storyboard in Resources */,
 				80551CC51F7AA11700176683 /* levelUp.wav in Resources */,
@@ -350,6 +358,7 @@
 				80551CB91F7A9FDC00176683 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
