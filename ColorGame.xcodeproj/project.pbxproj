@@ -24,6 +24,8 @@
 		80551CC81F7AA11700176683 /* powerUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 80551CC11F7AA11700176683 /* powerUp.wav */; };
 		809D57E81F7ACDC800897167 /* pulse.sks in Resources */ = {isa = PBXBuildFile; fileRef = 809D57E71F7ACDC800897167 /* pulse.sks */; };
 		809D57EA1F7ACE8300897167 /* fireworks.sks in Resources */ = {isa = PBXBuildFile; fileRef = 809D57E91F7ACE8300897167 /* fireworks.sks */; };
+		80E914011F7E9F3A00B6B9E6 /* GameSceneP2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 80E914001F7E9F3A00B6B9E6 /* GameSceneP2.sks */; };
+		80E914051F7EA25400B6B9E6 /* GameSceneG.sks in Resources */ = {isa = PBXBuildFile; fileRef = 80E914041F7EA25400B6B9E6 /* GameSceneG.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		80551CC11F7AA11700176683 /* powerUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = powerUp.wav; sourceTree = "<group>"; };
 		809D57E71F7ACDC800897167 /* pulse.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = pulse.sks; sourceTree = "<group>"; };
 		809D57E91F7ACE8300897167 /* fireworks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fireworks.sks; sourceTree = "<group>"; };
+		80E914001F7E9F3A00B6B9E6 /* GameSceneP2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneP2.sks; sourceTree = "<group>"; };
+		80E914041F7EA25400B6B9E6 /* GameSceneG.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneG.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,10 +84,12 @@
 			children = (
 				80551CA21F7A9FDC00176683 /* AppDelegate.swift */,
 				80551CA41F7A9FDC00176683 /* GameScene.sks */,
+				80E914001F7E9F3A00B6B9E6 /* GameSceneP2.sks */,
 				80551CA61F7A9FDC00176683 /* Actions.sks */,
 				80551CA81F7A9FDC00176683 /* GameScene.swift */,
 				80551CAA1F7A9FDC00176683 /* GameViewController.swift */,
 				80551CAC1F7A9FDC00176683 /* Main.storyboard */,
+				80E914041F7EA25400B6B9E6 /* GameSceneG.sks */,
 				80551CBA1F7AA11700176683 /* Sounds */,
 				80551CAF1F7A9FDC00176683 /* Assets.xcassets */,
 				80551CB11F7A9FDC00176683 /* LaunchScreen.storyboard */,
@@ -169,8 +175,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				80551CC71F7AA11700176683 /* move.wav in Resources */,
+				80E914011F7E9F3A00B6B9E6 /* GameSceneP2.sks in Resources */,
 				80551CAE1F7A9FDC00176683 /* Main.storyboard in Resources */,
 				80551CA51F7A9FDC00176683 /* GameScene.sks in Resources */,
+				80E914051F7EA25400B6B9E6 /* GameSceneG.sks in Resources */,
 				80551CC31F7AA11700176683 /* fail.wav in Resources */,
 				809D57EA1F7ACE8300897167 /* fireworks.sks in Resources */,
 				80551CC41F7AA11700176683 /* levelCompleted.wav in Resources */,

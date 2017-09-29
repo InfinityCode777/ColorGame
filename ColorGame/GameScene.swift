@@ -20,7 +20,7 @@ class GameScene: SKScene {
     
     //    var tracksArray:[SKSpriteNode]? = [SKSpriteNode]() //By Brian A.
     var tracksArray:[SKSpriteNode]? = [] //By Jing
-    var player:SKSpriteNode!
+    var player:SKSpriteNode?
     var currentTrack = 0
     var movingToTrack = false
     var moveSound = SKAction.playSoundFileNamed("move.wav", waitForCompletion: false)
@@ -39,22 +39,28 @@ class GameScene: SKScene {
     
     func createPlayer() {
         player = SKSpriteNode(imageNamed: "player")
+        player?.physicsBody? = SKPhysicsBody(circleOfRadius: player!.size.width/2)
+
+        //        let playerYPos = 207 //DEBUG
+        //        let playerXPos = 170 //DEBUG
+
+        
         let playerYPos = (tracksArray?.first?.size.height)!/2
-        
-        
         guard let playerXPos = tracksArray?.first?.position.x else {
             print("Please set up tracks in SKScene")
             return
         }
         
         
-        player.position = CGPoint(x: playerXPos, y: playerYPos)
+        player?.position = CGPoint(x: playerXPos, y: playerYPos)
         print("x = \(playerXPos), y = \(playerYPos)")
-        self.addChild(player)
+        self.addChild(player!)
         
         let pulse = SKEmitterNode(fileNamed: "pulse")!
-        player.addChild(pulse)
+        player?.addChild(pulse)
         pulse.position = CGPoint(x: 0, y: 0)
+        
+//        player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width/2)
         
     }
     
@@ -107,8 +113,8 @@ class GameScene: SKScene {
     }
     
     override func didMove(to view: SKView) {
-        //        tracksArray?.last?.color = UIColor.green
-        //                tracksArray?[4].color = UIColor.green
+        //        tracksArray?.last?.color = UIColor.green //LEARN
+        //                tracksArray?[4].color = UIColor.green //LEARN
         setupTracks()
         createPlayer()
         
@@ -128,17 +134,17 @@ class GameScene: SKScene {
         if up {
             let moveAction = SKAction.moveBy(x: 0, y: 3, duration: 0.01)
             let repeatAction = SKAction.repeatForever(moveAction)
-            player.run(repeatAction)
+            player?.run(repeatAction)
         } else {
             let moveAction = SKAction.moveBy(x: 0, y: -3, duration: 0.01)
             let repeatAction = SKAction.repeatForever(moveAction)
-            player.run(repeatAction)
+            player?.run(repeatAction)
             
         }
     }
     
     func moveToNextTrack() {
-        player.removeAllActions()
+        player?.removeAllActions()
         movingToTrack = true
         
         guard let nextTrack = tracksArray?[currentTrack + 1].position  else {
@@ -178,12 +184,12 @@ class GameScene: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if movingToTrack == false {
-            player.removeAllActions()
+            player?.removeAllActions()
         }
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        player.removeAllActions()
+        player?.removeAllActions()
     }
     
     
