@@ -16,17 +16,24 @@ enum Enemies:Int {
     case large
 }
 
-class GameScene: SKScene {
+
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //    var tracksArray:[SKSpriteNode]? = [SKSpriteNode]() //By Brian A.
     var tracksArray:[SKSpriteNode]? = [] //By Jing
     var player:SKSpriteNode?
+    var target:SKSpriteNode?
+    
     var currentTrack = 0
     var movingToTrack = false
     var moveSound = SKAction.playSoundFileNamed("move.wav", waitForCompletion: false)
     let trackVelocities = [180, 200, 250]
     var directionArray:[Bool] = []
     var velocityArray:[Int] = []
+    
+    let playerCategory:UInt32 = 0x1 << 0
+    let enemyCategory:UInt32 = 0x1 << 1
+    let targetCategory:UInt32 = 0x1 << 2
     
     
     func setupTracks() {
@@ -39,11 +46,18 @@ class GameScene: SKScene {
     
     func createPlayer() {
         player = SKSpriteNode(imageNamed: "player")
-        player?.physicsBody? = SKPhysicsBody(circleOfRadius: player!.size.width/2)
-
-        //        let playerYPos = 207 //DEBUG
-        //        let playerXPos = 170 //DEBUG
-
+        //        // Not affected by physic world, but why, by Jing, 10/02/17
+        //        player?.physicsBody? = SKPhysicsBody(circleOfRadius: player!.size.width/2)
+        
+        // Make it affected by physic world
+        let playerTexture = SKTexture(imageNamed: "player")
+        player?.physicsBody = SKPhysicsBody(texture: playerTexture, size: playerTexture.size())
+        
+        player?.zPosition = 0
+        player?.physicsBody?.linearDamping = 0
+        player?.physicsBody?.categoryBitMask = playerCategory
+        player?.physicsBody?.collisionBitMask = 0 // enemyCategory | targetCategory
+        player?.physicsBody?.contactTestBitMask =  enemyCategory | targetCategory
         
         let playerYPos = (tracksArray?.first?.size.height)!/2
         guard let playerXPos = tracksArray?.first?.position.x else {
@@ -53,14 +67,33 @@ class GameScene: SKScene {
         
         
         player?.position = CGPoint(x: playerXPos, y: playerYPos)
-        print("x = \(playerXPos), y = \(playerYPos)")
         self.addChild(player!)
         
         let pulse = SKEmitterNode(fileNamed: "pulse")!
         player?.addChild(pulse)
         pulse.position = CGPoint(x: 0, y: 0)
         
-//        player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width/2)
+        
+        print("playerCat = \(player?.physicsBody?.categoryBitMask ?? 0)")
+        print("playerColl = \(player?.physicsBody?.collisionBitMask ?? 0)")
+        print("playerTest = \(player?.physicsBody?.contactTestBitMask ?? 0)")
+        print("")
+        
+        
+    }
+    
+    func createTarget() {
+        target = self.childNode(withName: "target") as? SKSpriteNode
+        target?.physicsBody = SKPhysicsBody(circleOfRadius: target!.size.width/2)
+        //        target?.zPosition = 0
+        target?.physicsBody?.categoryBitMask = targetCategory
+        target?.physicsBody?.collisionBitMask = 0 // playerCategory
+        target?.physicsBody?.contactTestBitMask = 0 // playerCategory
+        
+        print("targetCat = \(target?.physicsBody?.categoryBitMask  ?? 0)")
+        print("targetColl = \(target?.physicsBody?.collisionBitMask  ?? 0)")
+        print("targetTest = \(target?.physicsBody?.contactTestBitMask  ?? 0)")
+        print("")
         
     }
     
@@ -90,8 +123,18 @@ class GameScene: SKScene {
         enemySprite.position.x = enemyPosition.x
         enemySprite.position.y = up ? -130 : self.size.height
             + 130
+        //        enemySprite.zPosition = 0
         enemySprite.physicsBody = SKPhysicsBody(edgeLoopFrom: enemySprite.path!)
+        enemySprite.physicsBody?.categoryBitMask = enemyCategory
+        enemySprite.physicsBody?.collisionBitMask = 0 // playerCategory
+        enemySprite.physicsBody?.contactTestBitMask = 0 //playerCategory
         enemySprite.physicsBody?.velocity = up ? CGVector(dx: 0, dy: velocityArray[track]) : CGVector(dx: 0, dy: -velocityArray[track])
+        
+        print("enemyCat = \(enemySprite.physicsBody?.categoryBitMask  ?? 0)")
+        print("enemyColl = \(enemySprite.physicsBody?.collisionBitMask ?? 0)")
+        print("enemyTest = \(enemySprite.physicsBody?.contactTestBitMask  ?? 0)")
+        print("")
+        
         
         return enemySprite
     }
@@ -109,14 +152,22 @@ class GameScene: SKScene {
             if node.position.y < -150 || node.position.y > self.size.height + 150 {
                 node.removeFromParent()
             }
+            
+            if self.player!.position.y < -150 || self.player!.position.y > self.size.height + 150 {
+                self.player?.removeFromParent()
+                self.createPlayer()
+                self.currentTrack = 0
+            }
         }
     }
     
     override func didMove(to view: SKView) {
-        //        tracksArray?.last?.color = UIColor.green //LEARN
-        //                tracksArray?[4].color = UIColor.green //LEARN
+        
         setupTracks()
+        createTarget()
         createPlayer()
+        
+        self.physicsWorld.contactDelegate = self
         
         if let numberOfTracks = tracksArray?.count{
             for _ in 0...numberOfTracks {
@@ -192,7 +243,24 @@ class GameScene: SKScene {
         player?.removeAllActions()
     }
     
-    
+    func didBegin(_ contact: SKPhysicsContact) {
+        var playerBody:SKPhysicsBody
+        var otherBody:SKPhysicsBody
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            playerBody = contact.bodyA
+            otherBody = contact.bodyB
+        } else {
+            playerBody = contact.bodyB
+            otherBody = contact.bodyA
+        }
+        
+        if playerBody.categoryBitMask == playerCategory && otherBody.categoryBitMask == enemyCategory {
+            print("Enemy hit!")
+        } else if playerBody.categoryBitMask == playerCategory && otherBody.categoryBitMask == targetCategory {
+            print("Target hit!")
+        }
+        
+    }
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
